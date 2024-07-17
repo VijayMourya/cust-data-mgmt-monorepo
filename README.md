@@ -47,6 +47,9 @@ yarn start:mobile
 ```
 * Based on your preference, enter `a` for Android emulator or `i` for iOS Simulator. Please note, in order for this to work, the AVDs and Simulators must have been downloaded and the necessary SDKs installed
 
+## Environment File
+* Create a `.env` file in the backend folder and enter the values for `DATABASE_URL` and `secretKey` used by JWT
+
 ## Roadmap
 
 * Sanitize Requests to prevent Cross-Site Scripting (XSS), SQL injection, and NoSQL injection attacks
