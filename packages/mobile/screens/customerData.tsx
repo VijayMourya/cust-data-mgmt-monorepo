@@ -36,7 +36,7 @@ const CustomerData: React.FC<CustomerDataProps> = ({ navigation }) => {
         dob: Yup.string()
             .required('Date of Birth is required'),
     });
-    
+
     const showDatepicker = () => {
         setShow(true);
     };
@@ -44,23 +44,23 @@ const CustomerData: React.FC<CustomerDataProps> = ({ navigation }) => {
     const saveUserData = async (values: Customer) => {
         try {
             const response = await fetch('http://10.0.2.2:3000/users', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify(values),
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(values),
             });
-      
+
             if (response.ok) {
-              const user = await response.json();
-              Alert.alert('Save Customer Data', 'Customer saved successfully', [
-                { text: 'OK', onPress: () => navigation.navigate('CustomerList') },
-            ]);
+                const user = await response.json();
+                Alert.alert('Save Customer Data', 'Customer saved successfully', [
+                    { text: 'OK', onPress: () => navigation.navigate('CustomerList') },
+                ]);
             } else {
-              const error = await response.json();
-              Alert.alert('Save Customer Data', 'There has been an error while trying to save the customer data. Please try again later', [
-                { text: 'OK', onPress: () => console.log('OK Pressed') },
-            ]);
+                const error = await response.json();
+                Alert.alert('Save Customer Data', 'There has been an error while trying to save the customer data. Please try again later', [
+                    { text: 'OK', onPress: () => console.log('OK Pressed') },
+                ]);
             }
         } catch (error: any) {
             Alert.alert('Network Error', error.message, [
@@ -76,7 +76,8 @@ const CustomerData: React.FC<CustomerDataProps> = ({ navigation }) => {
                 firstname: customer?.firstname || '',
                 lastname: customer?.lastname || '',
                 phone: customer?.phone || '',
-                dob: customer?.dob || '' }}
+                dob: customer?.dob || ''
+            }}
             validationSchema={validationSchema}
             onSubmit={(values) => {
                 saveUserData(values);
@@ -115,20 +116,17 @@ const CustomerData: React.FC<CustomerDataProps> = ({ navigation }) => {
                             disabled={true}
                         />
                     </TouchableOpacity>
-                    { show && 
+                    {show &&
                         <DatePicker
                             mode="calendar"
                             maximumDate={moment().format("YYYY-MM-DD").toString()}
                             onSelectedChange={(date) => {
-                                console.log("date: ", date);
-                                console.log("type: ", typeof(date));
                                 setShow(false);
                                 setFieldValue('dob', moment(date, 'YYYY/MM/DD').format("DD/MM/YYYY").toString());
-                                console.log("dob: ", values.dob);
                             }}
                         />
                     }
-                    <Button style={{ paddingTop: 20 }} onPress={ handleSubmit } title={ customer ? 'Update' : 'Save'} />
+                    <Button style={{ paddingTop: 20 }} onPress={handleSubmit} title={customer ? 'Update' : 'Save'} />
                 </View>
             )}
         </Formik>

@@ -10,7 +10,8 @@
   "scripts": {
     "start:mobile": "yarn workspace mobile start",
     "start:backend": "yarn workspace backend dev",
-    "start:db": "docker-compose up -d"
+    "start:db": "docker-compose up -d",
+    "start:prisma": "cd packages/backend && npx prisma generate && npx prisma migrate dev --name init && ts-node prisma/seed.ts"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",

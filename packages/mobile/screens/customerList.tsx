@@ -16,6 +16,16 @@ interface CustomerListProps {
 }
 
 const CustomerList: React.FC<CustomerListProps> = ({ navigation }) => {
+    useEffect(() => {
+        fetchCustomers();
+    }, []);
+
+    useFocusEffect(
+        useCallback(() => {
+            fetchCustomers();
+        }, [])
+    );
+    
     const [customers, setCustomers] = useState<Customer[]>([]);
     const [isRefreshing, setRefreshing] = useState(false);
 
@@ -35,16 +45,6 @@ const CustomerList: React.FC<CustomerListProps> = ({ navigation }) => {
             ]);
         }
     };
-
-    useEffect(() => {
-        fetchCustomers();
-    }, []);
-
-    useFocusEffect(
-        useCallback(() => {
-            fetchCustomers();
-        }, [])
-    );
 
     const handleManageCustomer = (customer?: Customer) => {
         navigation.navigate('CustomerData', customer);
